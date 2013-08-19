@@ -7,6 +7,7 @@ task :replace => [:init] do
     include ReplaceVarianceInSQL
 
     map = load_kbn_const_java
-    replace_kbn_const_java_field
+    str = replace_kbn_const_java_field(map)
+    generate_replaced_file(str)
 end
 

@@ -3,3 +3,5 @@
 require 'rubygems'
 require 'tempfile'
 require 'inifile'
+
+$ini = IniFile::load("app.properties")

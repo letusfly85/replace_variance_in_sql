@@ -20,4 +20,14 @@ module ReplaceVarianceInSQL
 
         return map
     end
+
+    def replace_kbn_const_java_field
+        bl_file = File::open($ini['files']['bl_file_path'], 'r')
+
+        bl_file.each do |line|
+            if /KbnConst/ =~ line.chomp
+                puts line.chomp
+            end
+        end
+    end
 end

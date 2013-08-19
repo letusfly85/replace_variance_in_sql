@@ -23,6 +23,7 @@ module ReplaceVarianceInSQL
 
     def replace_kbn_const_java_field(map)
         str = ""
+        buf = ""
         bl_path = File::join('input', $ini['files']['bl_file_name'])
         bl_file = File::open(bl_path, 'r')
 
@@ -30,16 +31,19 @@ module ReplaceVarianceInSQL
         suffix = '}'
         bl_file.each do |line|
             if /KbnConst/ =~ line.chomp
-                key    =  line.chomp.scan(/#{prefix}([A-Z0-9_]*)#{suffix}/)[0][0]
+                key    =  line.scan(/#{prefix}([A-Z0-9_]*)#{suffix}/)[0][0]
                 target = '${_' + prefix + key + suffix
-                str += line.chomp.sub(target, "'" + map[key] + "'")
-
+                str += line.sub(target, "'" + map[key] + "'")
             else
-                str += line.chomp
+                str += line
             end
         end
 
-        return str
+        buf =  str.gsub('$_FLG_OFF$', "\'0\'")
+        buf =  buf.gsub('$_FLG_ON$' , "\'1\'")
+
+        //TODO $USERID, $FNC_ID 対応
+        return buf 
     end
 
     def generate_replaced_file(str)

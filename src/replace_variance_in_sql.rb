@@ -41,8 +41,11 @@ module ReplaceVarianceInSQL
 
         buf =  str.gsub('$_FLG_OFF$', "\'0\'")
         buf =  buf.gsub('$_FLG_ON$' , "\'1\'")
+        buf =  buf.gsub('$USER_ID$' , "\'test\'")
+        buf =  buf.gsub('$FNC_ID$'  , "\'test\'")
+        buf =  buf.gsub('$SHNT$'    , "\'01\'")
+        buf =  buf.gsub('$KYJT$'    , "\'1\'")
 
-        //TODO $USERID, $FNC_ID 対応
         return buf 
     end
 
